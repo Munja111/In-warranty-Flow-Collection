@@ -1,4 +1,4 @@
-name : Pstman Collection Workflow
+name : Postman Collection Workflow
 on : 
   push:
     branches: [main]
@@ -62,8 +62,7 @@ jobs:
           from: ${{ secrets.EMAIL_USERNAME }}
           body: |
                 Hello Manager,
-                In Warranty Flow Test has been executed.Report has been published and the URL is
-                : https://munja111.github.io/In-warranty-Flow-Collection/
+                In Warranty Flow Test has been executed.Report has been published and the URL is: https://munja111.github.io/In-warranty-Flow-Collection/
           
           
           
