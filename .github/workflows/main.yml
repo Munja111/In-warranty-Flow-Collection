@@ -61,7 +61,7 @@ jobs:
           to: mjclsf111@gmail.com
           from: ${{ secrets.EMAIL_USERNAME }}
           body: |
-                Hello There,
+                Hi,
                 PIF Test has been executed. Report has been published and the URL is
                 : https://munja111.github.io/In-warranty-Flow-Collection/
           
