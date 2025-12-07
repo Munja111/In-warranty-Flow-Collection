@@ -58,7 +58,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: PIF Test Execution Notification
-          to: mjclsf111@gmail.com
+          to: mjclsf111@gmail.com, mahemalchavda@gmail.com
           from: ${{ secrets.EMAIL_USERNAME }}
           body: |
                 Hello Manager,
