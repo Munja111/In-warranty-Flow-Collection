@@ -1,0 +1,74 @@
+name : Pstman Collection Workflow
+on : 
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule :
+    - cron : 30 02 * * * #8AM IST Everyday
+    - cron : 00 14 * * * #730PM IST Everyday
+    - cron : 00 06 * * 1-5 #1130AM IST Mon-Fri
+
+    
+jobs: 
+  run-postman-tests:
+    runs-on: Ubuntu-latest
+
+    steps: 
+      - name: Checkout the code
+        uses: actions/checkout@v6.0.1
+
+      - name: Install Nodejs and npm
+        uses: actions/setup-node@v6.1.0
+        with:
+          node-version: '22'
+
+      - name: Install Newman and Html-extra globally
+        run: |
+             npm install -g newman 
+             npm install -g newman-reporter-htmlextra
+
+      - name: Run the Postman Collection with Newman
+        run: |
+             newman run 'My Practice_InWarrantyFlow.postman_collection.json' \
+             -e QA_ENV.postman_environment.json \
+             -d testDataCSV_Info.csv \
+             -r cli,htmlextra \
+             --reporter-htmlextra-export ./newman/index.html
+
+      - name: Newman Report
+        if: always() #ensure that the archieve executed irrespective whether the previous steps has passed or not!
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: Newman Report
+          path: newman/*.html
+
+      - name: Creating Gitgub Page Branch
+        if : always()
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with: 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: newman/
+
+      - name: Send Email Notification
+        if: always()
+        uses: dawidd6/action-send-mail@v6
+        with: 
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: PIF Test Execution Notification
+          to: mjclsf111@gmail.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+                Hello Manager,
+                In Warranty Flow Test has been executed.Report has been published and the URL is
+                : https://munja111.github.io/In-warranty-Flow-Collection/
+          
+          
+          
+          
+          
+
+      
+    
