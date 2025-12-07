@@ -48,6 +48,27 @@ jobs:
         with: 
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: newman/
+
+      - name: Send Email Notification
+        if: always()
+        uses: dawidd6/action-send-mail@v6
+        with: 
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: PIF Test Execution Notification
+          to: mjclsf111@gmail.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+                Hello There,
+                PIF Test has been executed. Report has been published and the URL is
+                : https://munja111.github.io/In-warranty-Flow-Collection/
+            
+          
+          
+          
+          
           
 
       
