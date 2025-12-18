@@ -60,7 +60,7 @@ jobs:
           to: mjclsf111@gmail.com, mahemalchavda@gmail.com
           from: ${{ secrets.EMAIL_USERNAME }}
           body: |
-                Hello Manager,
+                Hello Team,
                 In Warranty Flow Test has been executed.Report has been published and the URL is: https://munja111.github.io/In-warranty-Flow-Collection/
           
 
